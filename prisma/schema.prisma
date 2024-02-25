@@ -19,18 +19,23 @@ model User {
   email    String
   phone    String    @db.VarChar(10)
   Booking  Booking[]
+  role     Role      @default(USER)
 
   @@map("users")
 }
 
 model Booking {
-  id      Int      @id @default(autoincrement())
-  date    DateTime @db.Date
-  time    DateTime @db.Time()
-  phone   String   @db.VarChar(10)
-  disease String
-  user    User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user_id Int
-  
+  id       Int      @id @default(autoincrement())
+  datetime DateTime @db.Date
+  phone    String   @db.VarChar(10)
+  disease  String
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id  Int
+
   @@map("bookings")
+}
+
+enum Role {
+  ADMIN
+  USER
 }
