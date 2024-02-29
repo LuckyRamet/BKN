@@ -11,3 +11,25 @@ exports.getByUser = async (req, res, next) => {
       next(err)
     }
   }
+
+exports.editProfile = async (req, res, next) => {
+  try {
+    const {name, lastname, phone, email} = req.body
+
+    const rs = await db.user.update({
+      where: {
+        id: req.user.id
+      },
+      data: {
+        name,
+        lastname,
+        email,
+        phone
+      }
+    })
+    
+    res.json(rs)
+  } catch (error) {
+    next(error)
+  }
+}
