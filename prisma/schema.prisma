@@ -34,6 +34,13 @@ model Booking {
 
   @@map("bookings")
 }
+model Time {
+  id       Int      @id @default(autoincrement())
+  datetime DateTime @db.Date
+  
+
+  @@map("time")
+}
 
 enum Role {
   ADMIN

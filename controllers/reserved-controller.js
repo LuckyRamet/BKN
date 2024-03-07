@@ -62,3 +62,60 @@ exports.deleteRerved = async (req, res, next ) => {
         
     }
 }
+
+exports.getResevedId = async (req, res, next) => {
+
+    const {id} = req.params
+    try {
+        
+        const rs = await db.booking.findFirst({
+            where: {
+                id: +id
+            }
+        })
+        res.json(rs)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.editRerved = async (req, res, next) => {
+    const { bookingId } = req.params;
+    const { phone, disease } = req.body;
+
+    try {
+        const updatedBooking = await db.booking.update({
+            where: {
+                id: Number(bookingId)
+            },
+            data: {
+                phone,
+                disease
+            }
+        });
+
+        res.json(updatedBooking);
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.creacteBooking = async (req, res, next) => {
+    const { datetime,  phone, disease, user_id} = req.body
+
+    try {
+        const booking = await db.booking.create({
+            data:{
+                datetime:new Date(datetime),
+                phone,
+                disease,
+                user_id: Number(user_id)
+
+            }
+        })
+        res.json(booking)
+    } catch (error) {
+        next(error)
+    }
+}
