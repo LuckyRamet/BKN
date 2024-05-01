@@ -104,10 +104,12 @@ exports.editRerved = async (req, res, next) => {
 exports.creacteBooking = async (req, res, next) => {
     const { datetime,  phone, disease, user_id} = req.body
 
+    // console.log(typeof datetime);
+
     try {
         const booking = await db.booking.create({
             data:{
-                datetime:new Date(datetime),
+                datetime: new Date(datetime),
                 phone,
                 disease,
                 user_id: Number(user_id)
