@@ -5,6 +5,6 @@ const userController = require('../controllers/user-controller')
 
 router.get('/infomation',authenticate, userController.getByUser)
 router.patch('/patch',authenticate, userController.editProfile)
-
+router.get('/getall',authenticate,userController.getallUser)
 
 module.exports = router

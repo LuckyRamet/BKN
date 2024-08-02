@@ -30,6 +30,7 @@ model Booking {
   disease  String
   user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id  Int
+  notes    String?
 
   @@map("bookings")
 }

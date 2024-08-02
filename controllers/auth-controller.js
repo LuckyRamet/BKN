@@ -4,16 +4,18 @@ const db = require("../models/db");
 const thaiId = require("thaiid");
 
 exports.register = async (req, res, next) => {
-  const { card_id, password, email, name, lastname, phone } = req.body;
+  const { card_id, password, email, name, lastname,  } = req.body;
   try {
     // validation
-    if (!(card_id && password && email && name && lastname && phone)) {
+    if (!(card_id && password && email && name && lastname  )) {
       return next(new Error("Fulfill all inputs"));
     }
+    
+    const red = thaiId.verify(card_id);
+    // console.log(thaiId.verify(card_id))
+    
 
-    thaiId.verify(card_id);
-
-    if (!thaiId || card_id.length != 13) {
+    if (!red || card_id.length != 13) {
       return next(new Error("รหัสบัตรประชาชนไม่ถูกต้อง"))
     }
 
@@ -25,7 +27,7 @@ exports.register = async (req, res, next) => {
       email,
       name,
       lastname,
-      phone,
+      // role,
     };
 
     await db.user.create({ data });

@@ -11,7 +11,15 @@ exports.getByUser = async (req, res, next) => {
       next(err)
     }
   }
-
+  exports.getallUser = async (req, res, next) => {
+    try {
+      // console.log(req.user);
+      const user = await db.user.findMany()
+      res.json(user)
+    } catch (err) {
+      next(err)
+    }
+  }
 exports.editProfile = async (req, res, next) => {
   try {
     const {name, lastname, phone, email} = req.body
@@ -27,9 +35,13 @@ exports.editProfile = async (req, res, next) => {
         phone
       }
     })
+  
+  
     
     res.json(rs)
   } catch (error) {
     next(error)
   }
+  
 }
+
